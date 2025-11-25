@@ -1,0 +1,23 @@
+using BlogApp.Data.Abstract;
+using BlogApp.Data.Concrete.EfCore;
+using BlogApp.Entity;
+using Microsoft.EntityFrameworkCore;
+
+namespace BlogApp.Data.Concrete
+{
+    public class EfTagRepository : ITagRepository
+    {
+        private BlogContext _context;
+        public EfTagRepository(BlogContext context)
+        {
+            _context = context;
+        }
+        public IQueryable<Tag> Tags => _context.Tags;
+
+        public void CreateTag(Tag Tags)
+        {
+            _context.Tags.Add(Tags);
+            _context.SaveChanges();
+        }
+    }
+}
